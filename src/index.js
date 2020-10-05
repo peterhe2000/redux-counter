@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 
-import { bindActionCreators, createStore } from 'redux';
+import { createStore } from 'redux';
 import { connect, Provider } from 'react-redux';
 
 import './styles.scss';
@@ -55,9 +55,7 @@ class Counter extends Component {
 const mapStateToProps = (state) => {
   return state;
 }; // Pick up piece of state you want
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ increment, decrement }, dispatch);
-}; // dispatch action
+const mapDispatchToProps = { increment, decrement }; // dispatch action
 
 const CountContainer = connect(mapStateToProps, mapDispatchToProps)(Counter); // high order component
 
