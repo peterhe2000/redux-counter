@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 
-import { createStore } from 'redux';
+import { bindActionCreators, createStore } from 'redux';
 import { connect, Provider } from 'react-redux';
 
 import './styles.scss';
@@ -11,11 +11,11 @@ const initialState = { count: 0 };
 const INCREMENT = 'INCREMENT';
 const DECREMENT = 'DECREMENT';
 
-const incrementValue = () => ({
+const increment = () => ({
   type: INCREMENT,
 });
 
-const decrementValue = () => ({
+const decrement = () => ({
   type: DECREMENT,
 });
 
@@ -56,14 +56,7 @@ const mapStateToProps = (state) => {
   return state;
 }; // Pick up piece of state you want
 const mapDispatchToProps = (dispatch) => {
-  return {
-    increment() {
-      dispatch(incrementValue());
-    },
-    decrement() {
-      dispatch(decrementValue());
-    },
-  };
+  return bindActionCreators({ increment, decrement }, dispatch);
 }; // dispatch action
 
 const CountContainer = connect(mapStateToProps, mapDispatchToProps)(Counter); // high order component
