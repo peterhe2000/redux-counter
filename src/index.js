@@ -27,11 +27,13 @@ const store = createStore(reducer);
 
 class Counter extends Component {
   render() {
+    const { count, increment } = this.props;
+
     return (
       <main className="Counter">
-        <p className="count">0</p>
+        <p className="count">{count}</p>
         <section className="controls">
-          <button>Increment</button>
+          <button onClick={increment}>Increment</button>
           <button>Decrement</button>
           <button>Reset</button>
         </section>
@@ -40,4 +42,22 @@ class Counter extends Component {
   }
 }
 
-render(<Counter />, document.getElementById('root'));
+const mapStateToProps = (state) => {
+  return state;
+}; // Pick up piece of state you want
+const mapDispatchToProps = (dispatch) => {
+  return {
+    increment() {
+      dispatch(incrementValue());
+    },
+  };
+}; // dispatch action
+
+const CountContainer = connect(mapStateToProps, mapDispatchToProps)(Counter); // high order component
+
+render(
+  <Provider store={store}>
+    <CountContainer />
+  </Provider>,
+  document.getElementById('root'),
+);
